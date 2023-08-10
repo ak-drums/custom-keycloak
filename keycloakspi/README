@@ -1,0 +1,12 @@
+1. Что бы запустить приложение вместе с ДБ введите в командной строке.
+
+  docker-compose up -d --build
+
+2. При добавлении нового SPI возникла ошибка в ДБ. Колонка AUTHENTICATOR в таблице AUTHENTICATION_EXECUTION имеет длину
+в varchar 36.
+
+    Для решения проблемы нужно запустить следующий скрипт для увеличения длины колонки таблицы
+
+  ALTER TABLE AUTHENTICATION_EXECUTION ALTER COLUMN AUTHENTICATOR TYPE varchar(256);
+
+3. Добавить индекс на колонку value.
