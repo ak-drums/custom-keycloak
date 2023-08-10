@@ -1,0 +1,30 @@
+version: "3"
+services:
+  auth:
+    image: kz.air/keycloak-spi:0.2
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_URL: http://localhost:8080
+      KC_HOSTNAME_ADMIN_URL: http://localhost:8080
+      KEYCLOAK_FRONTEND_URL: http://localhost:8080
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    command:
+      - start-dev --features=declarative-user-profile
+    restart: always
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
