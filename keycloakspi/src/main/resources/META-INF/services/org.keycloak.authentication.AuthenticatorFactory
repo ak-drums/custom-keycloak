@@ -1,1 +1,1 @@
-kz.air.keycloak.spi.authenticator.CustomUsernamePasswordAuthenticatorFactory
+kz.air.keycloak.spi.authenticator.AttributeUsernamePasswordAuthenticatorFactory

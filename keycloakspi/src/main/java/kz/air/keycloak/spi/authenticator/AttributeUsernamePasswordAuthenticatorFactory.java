@@ -1,5 +1,6 @@
 package kz.air.keycloak.spi.authenticator;
 
+import org.jboss.logging.Logger;
 import org.keycloak.Config;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticatorFactory;
@@ -12,10 +13,11 @@ import org.keycloak.provider.ProviderConfigProperty;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomUsernamePasswordAuthenticatorFactory implements AuthenticatorFactory, ConfigurableAuthenticatorFactory {
+public class AttributeUsernamePasswordAuthenticatorFactory implements AuthenticatorFactory, ConfigurableAuthenticatorFactory {
+    private static final Logger log = Logger.getLogger(AttributeUsernamePasswordAuthenticatorFactory.class);
 
-    public static final String PROVIDER_ID = "attribute-username-password-authenticator";
-    private static final CustomUsernamePasswordAuthenticator SINGLETON = new CustomUsernamePasswordAuthenticator();
+    public static final String PROVIDER_ID = "add-name";
+    private AttributeUsernamePasswordAuthenticator SINGLETON;
 
     @Override
     public String getId() {
@@ -34,7 +36,7 @@ public class CustomUsernamePasswordAuthenticatorFactory implements Authenticator
 
     @Override
     public boolean isConfigurable() {
-        return false;
+        return true;
     }
 
     @Override
@@ -59,7 +61,9 @@ public class CustomUsernamePasswordAuthenticatorFactory implements Authenticator
 
     @Override
     public void init(Config.Scope scope) {
-
+        String additionalUsername = scope.get("username", "phone_number");
+        this.SINGLETON = new AttributeUsernamePasswordAuthenticator(additionalUsername);
+        log.info("Using %s ".formatted(additionalUsername));
     }
 
     @Override
