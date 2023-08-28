@@ -12,6 +12,8 @@ services:
       KC_DB_URL: jdbc:postgresql://db:5432/postgres
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
+      KC_SPI_AUTHENTICATOR_ADD_NAME_USERNAME: phone_number
+      KC_SPI_EVENTS_LISTENER_USER_REGISTERED_EXTERNAL_SERVICE: http://localhost:8787/test
     build:
       dockerfile: ./Dockerfile
     ports:

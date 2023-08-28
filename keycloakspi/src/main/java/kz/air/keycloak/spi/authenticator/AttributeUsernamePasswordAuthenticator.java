@@ -17,8 +17,13 @@ import org.keycloak.services.messages.Messages;
 
 import static org.keycloak.services.validation.Validation.FIELD_USERNAME;
 
-public class CustomUsernamePasswordAuthenticator extends UsernamePasswordForm {
-    private String additionalUsername = "phone_number";
+public class AttributeUsernamePasswordAuthenticator extends UsernamePasswordForm {
+    private String additionalUsername;
+
+    public AttributeUsernamePasswordAuthenticator(String additionalUsername) {
+        this.additionalUsername = additionalUsername != null ? additionalUsername.trim() : "phone_number";
+    }
+
     protected boolean validateForm(AuthenticationFlowContext context, MultivaluedMap<String, String> formData) {
         return validateUserAndPassword(context, formData);
     }
@@ -60,7 +65,7 @@ public class CustomUsernamePasswordAuthenticator extends UsernamePasswordForm {
         UserModel user = null;
         try {
             user = KeycloakModelUtils.findUserByNameOrEmail(context.getSession(), context.getRealm(), username);
-            if(user == null) {
+            if(user == null && additionalUsername != null && !additionalUsername.trim().isEmpty()) {
                 user = context.getSession().users().searchForUserByUserAttributeStream(context.getRealm(), additionalUsername, username).findAny().orElse(null);
             }
         } catch (ModelDuplicateException mde) {
