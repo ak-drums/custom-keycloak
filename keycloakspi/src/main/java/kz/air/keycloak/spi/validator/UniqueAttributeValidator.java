@@ -4,8 +4,10 @@ import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
+import org.keycloak.models.UserModel;
 import org.keycloak.provider.ConfiguredProvider;
 import org.keycloak.provider.ProviderConfigProperty;
+import org.keycloak.userprofile.UserProfileAttributeValidationContext;
 import org.keycloak.validate.*;
 import org.keycloak.validate.validators.ValidatorConfigValidator;
 
@@ -43,11 +45,13 @@ public class UniqueAttributeValidator extends AbstractStringValidator implements
         session.users().searchForUserByUserAttributeStream(realm, attributeNameValue, value)
                 .findAny()
                 .ifPresent(userModel -> {
-                    log.info(String.format("User %s also has a phone number %s", userModel.getUsername(), value));
-                    context.addError(new ValidationError(ID, inputHint, errorMessage)
-                            .setStatusCode(Response.Status.CONFLICT));
+                    UserModel user = UserProfileAttributeValidationContext.from(context).getAttributeContext().getUser();
+                    if (user == null || !Objects.equals(user.getId(), userModel.getId())) {
+                            log.info(String.format("User %s also has a phone number %s", userModel.getUsername(), value));
+                            context.addError(new ValidationError(ID, inputHint, errorMessage)
+                                    .setStatusCode(Response.Status.CONFLICT));
+                    }
                 });
-
     }
 
     @Override
