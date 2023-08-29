@@ -29,6 +29,7 @@
 1. Пройти по вкладке 'Realm settings', затем по вкладке 'Events'
 2. В списке 'Event Listeners' выбрать 'user-registered'. Teперь при регистрации пользователя будет выполняться код из класса kz.air.keycloak.spi.listener.UserRegisteredListenerProvider. В коде provider слушает событие при регистрации пользователя и отправляет HTTP запрос на адрес указанный переменной 'KC_SPI_EVENTS_LISTENER_USER_REGISTERED_EXTERNAL_SERVICE'. Для редактирования запроса нужно редактировать метод kz.air.keycloak.spi.transaction.RegisteredUserSyncTransaction
 
-
+Kастомный REST endpoint:
+1. http://{host}/realms/{realm}/{resource-provider-id}/{endpoint}
 
 
