@@ -33,3 +33,8 @@ Kастомный REST endpoint:
 1. http://{host}/realms/{realm}/{resource-provider-id}/{endpoint}
 
 
+Для конфигурации сервиса подтверждения номера телефона были добавлены следующие переменные:
+
+1.KC_SPI_VER_CODE_SMS_CODE_SERVICE_MAX_ATTEMPTS  ==> максимальное количество попыток для подтверждения номера 
+2.KC_SPI_VER_CODE_SMS_CODE_SERVICE_TTL           ==> время действия смс кода в секундах 
+3.KC_SPI_VER_CODE_SMS_CODE_SERVICE_CODE_LENGTH   ==> длина СМС кода

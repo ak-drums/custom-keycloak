@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+xmlns_xsi="https://www.w3.org/2001/XMLSchema-instance"
+xsi_schemaLocation="https://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+<include file="create_verification_code_table.xml" relativeToChangelogFile="true" />
+<!-- more <include> tags go here -->
+</databaseChangeLog>

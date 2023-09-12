@@ -14,6 +14,9 @@ services:
       KC_DB_PASSWORD: postgres
       KC_SPI_AUTHENTICATOR_ADD_NAME_USERNAME: phone_number
       KC_SPI_EVENTS_LISTENER_USER_REGISTERED_EXTERNAL_SERVICE: http://localhost:8787/test
+      KC_SPI_VER_CODE_SMS_CODE_SERVICE_CODE_LENGTH: 3
+      KC_SPI_VER_CODE_SMS_CODE_SERVICE_TTL: 10
+      KC_SPI_VER_CODE_SMS_CODE_SERVICE_MAX_ATTEMPTS: 3
     build:
       dockerfile: ./Dockerfile
     ports:
