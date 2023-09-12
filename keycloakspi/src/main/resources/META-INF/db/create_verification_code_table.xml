@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="abl.kydyr@gmail.com" id="131307092023_create_verification_table">
+        <createTable tableName="verification_code">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="realm_id" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="identifier" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expires_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attempts"   type="smallint"/>
+        </createTable>
+
+        <addPrimaryKey
+                constraintName="pk_verification_code"
+                tableName="verification_code"
+                columnNames="id"
+        />
+
+    </changeSet>
+
+</databaseChangeLog>
